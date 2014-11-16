@@ -1,0 +1,86 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/fiznool/.nvm/v0.10.33/bin/node',
+1 verbose cli   '/home/fiznool/.nvm/v0.10.33/bin/npm',
+1 verbose cli   'publish',
+1 verbose cli   '0.1.1' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose publish [ '0.1.1' ]
+5 verbose cache add [ '0.1.1', null ]
+6 verbose cache add name=undefined spec="0.1.1" args=["0.1.1",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: '0.1.1',
+7 verbose parsed url   path: '0.1.1',
+7 verbose parsed url   href: '0.1.1' }
+8 silly lockFile a73777f5-0-1-1 0.1.1
+9 verbose lock 0.1.1 /home/fiznool/.npm/a73777f5-0-1-1.lock
+10 silly lockFile a73777f5-0-1-1 0.1.1
+11 silly lockFile a73777f5-0-1-1 0.1.1
+12 verbose addNamed [ '0.1.1', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile f56946b3-0-1-1 0.1.1@
+15 verbose lock 0.1.1@ /home/fiznool/.npm/f56946b3-0-1-1.lock
+16 silly addNameRange { name: '0.1.1', range: '*', hasData: false }
+17 verbose request where is /0.1.1
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id d7baab854cc8b9d6
+20 verbose url raw /0.1.1
+21 verbose url resolving [ 'https://registry.npmjs.org/', './0.1.1' ]
+22 verbose url resolved https://registry.npmjs.org/0.1.1
+23 verbose request where is https://registry.npmjs.org/0.1.1
+24 info trying registry request attempt 1 at 09:12:33
+25 http GET https://registry.npmjs.org/0.1.1
+26 http 404 https://registry.npmjs.org/0.1.1
+27 verbose headers { date: 'Sun, 16 Nov 2014 09:12:33 GMT',
+27 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+27 verbose headers   'content-type': 'application/json',
+27 verbose headers   'cache-control': 'max-age=0',
+27 verbose headers   'content-length': '52',
+27 verbose headers   'accept-ranges': 'bytes',
+27 verbose headers   via: '1.1 varnish',
+27 verbose headers   age: '0',
+27 verbose headers   'x-served-by': 'cache-lcy1129-LCY',
+27 verbose headers   'x-cache': 'MISS',
+27 verbose headers   'x-cache-hits': '0',
+27 verbose headers   'x-timer': 'S1416129153.516749,VS0,VE86',
+27 verbose headers   'keep-alive': 'timeout=10, max=50',
+27 verbose headers   connection: 'Keep-Alive' }
+28 silly registry.get cb [ 404,
+28 silly registry.get   { date: 'Sun, 16 Nov 2014 09:12:33 GMT',
+28 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+28 silly registry.get     'content-type': 'application/json',
+28 silly registry.get     'cache-control': 'max-age=0',
+28 silly registry.get     'content-length': '52',
+28 silly registry.get     'accept-ranges': 'bytes',
+28 silly registry.get     via: '1.1 varnish',
+28 silly registry.get     age: '0',
+28 silly registry.get     'x-served-by': 'cache-lcy1129-LCY',
+28 silly registry.get     'x-cache': 'MISS',
+28 silly registry.get     'x-cache-hits': '0',
+28 silly registry.get     'x-timer': 'S1416129153.516749,VS0,VE86',
+28 silly registry.get     'keep-alive': 'timeout=10, max=50',
+28 silly registry.get     connection: 'Keep-Alive' } ]
+29 silly lockFile f56946b3-0-1-1 0.1.1@
+30 silly lockFile f56946b3-0-1-1 0.1.1@
+31 error 404 404 Not Found: 0.1.1
+31 error 404
+31 error 404 '0.1.1' is not in the npm registry.
+31 error 404 You should bug the author to publish it
+31 error 404
+31 error 404 Note that you can also install from a
+31 error 404 tarball, folder, or http url, or git url.
+32 error System Linux 3.16.0-24-generic
+33 error command "/home/fiznool/.nvm/v0.10.33/bin/node" "/home/fiznool/.nvm/v0.10.33/bin/npm" "publish" "0.1.1"
+34 error cwd /home/fiznool/Code/libraries/passport-oauth2-refresh
+35 error node -v v0.10.33
+36 error npm -v 1.4.28
+37 error code E404
+38 verbose exit [ 1, true ]
