@@ -1,6 +1,6 @@
 {
   "name": "passport-oauth2-refresh",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A passport.js add-on to provide automatic OAuth 2.0 token refreshing.",
   "main": "lib/refresh.js",
   "directories": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fiznool/passport-oauth-refresh.git"
+    "url": "https://github.com/fiznool/passport-oauth2-refresh.git"
   },
   "keywords": [
     "passport",
@@ -27,9 +27,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fiznool/passport-oauth-refresh/issues"
+    "url": "https://github.com/fiznool/passport-oauth2-refresh/issues"
   },
-  "homepage": "https://github.com/fiznool/passport-oauth-refresh",
+  "homepage": "https://github.com/fiznool/passport-oauth2-refresh",
   "devDependencies": {
     "chai": "*",
     "mocha": "*",
