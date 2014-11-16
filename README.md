@@ -38,7 +38,7 @@ refresh.use(strategy);
 
 When you need to refresh the access token, call `requestNewAccessToken()`:
 
-```
+``` js
 var refresh = require('passport-oauth2-refresh');
 refresh.requestNewAccessToken('facebook', 'some_refresh_token', function(err, accessToken, refreshToken) {
   // You have a new access token, store it in the user object,
