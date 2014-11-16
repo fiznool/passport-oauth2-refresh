@@ -1,7 +1,7 @@
 {
   "name": "passport-oauth2-refresh",
-  "version": "0.1.0",
-  "description": "A passport add-on to provide automatic OAuth 2.0 token refreshing.",
+  "version": "0.1.1",
+  "description": "A passport.js add-on to provide automatic OAuth 2.0 token refreshing.",
   "main": "lib/refresh.js",
   "directories": {
     "test": "test"
