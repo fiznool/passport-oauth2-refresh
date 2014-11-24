@@ -8,6 +8,8 @@ An add-on to the [Passport](http://passportjs.org) authentication library to pro
 npm install passport-oauth2-refresh
 ```
 
+[![NPM](https://nodei.co/npm/passport-oauth2-refresh.png?downloads=true)](https://nodei.co/npm/passport-oauth2-refresh/)
+
 ## Usage
 
 When setting up your passport strategies, add a call to `refresh.use()` after `passport.use()`.
