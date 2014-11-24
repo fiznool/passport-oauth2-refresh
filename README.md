@@ -51,6 +51,10 @@ refresh.requestNewAccessToken('facebook', 'some_refresh_token', function(err, ac
 
 ```
 
+## Examples
+
+- See [issue #1](https://github.com/fiznool/passport-oauth2-refresh/issues/1) for an example of how to refresh a token when requesting data from the Google APIs.
+
 ## Why?
 
 Passport is a library which doesn't deal in implementation-specific details. From the author:
