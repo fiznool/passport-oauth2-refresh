@@ -16,14 +16,33 @@ describe('Auth token refresh', function() {
   });
 
   describe('use', function() {
-    it('should add a strategy', function() {
+    it('should add a strategy with a refreshURL', function() {
       var strategy = {
         name: 'test_strategy',
-        _oauth2: {}
+        _refreshURL: 'refreshURL',
+        _oauth2: {
+          _accessTokenUrl: 'accessTokenUrl'
+        }
       };
 
       AuthTokenRefresh.use(strategy);
-      expect(AuthTokenRefresh._strategies.test_strategy).to.equal(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.strategy)
+        .to.equal(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2._accessTokenUrl).to.equal('refreshURL');
+    });
+
+    it('should add a strategy without a refreshURL', function() {
+      var strategy = {
+        name: 'test_strategy',
+        _oauth2: {
+          _accessTokenUrl: 'accessTokenUrl'
+        }
+      };
+
+      AuthTokenRefresh.use(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.strategy)
+        .to.equal(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2._accessTokenUrl).to.equal('accessTokenUrl');
     });
 
     it('should not add a null strategy', function() {
@@ -81,15 +100,16 @@ describe('Auth token refresh', function() {
   describe('request new access token', function() {
     it('should refresh an access token', function() {
       var getOAuthAccessTokenSpy = sinon.spy();
-      var strategy = {
-        name: 'test_strategy',
-        _oauth2: {
-          getOAuthAccessToken: getOAuthAccessTokenSpy
-        }
-      };
       var done = sinon.spy();
 
-      AuthTokenRefresh.use(strategy);
+      AuthTokenRefresh._strategies = {
+        test_strategy: {
+          refreshOAuth2: {
+            getOAuthAccessToken: getOAuthAccessTokenSpy
+          }
+        }
+      };
+
       AuthTokenRefresh.requestNewAccessToken('test_strategy', 'refresh_token', done);
 
       expect(getOAuthAccessTokenSpy).to.have.been.calledWith('refresh_token', { grant_type: 'refresh_token' }, done);
