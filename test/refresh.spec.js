@@ -16,6 +16,28 @@ describe('Auth token refresh', function() {
   });
 
   describe('use', function() {
+    it('should add a strategy with an explicitly defined name', function() {
+      var strategy = {
+        name: 'internal_name',
+        _oauth2: {}
+      };
+
+      AuthTokenRefresh.use('explicit_name', strategy);
+
+      expect(AuthTokenRefresh._strategies.explicit_name.strategy).to.equal(strategy);expect(AuthTokenRefresh._strategies.strategy).to.be.undefined;
+    });
+
+    it('should add a strategy without an explicitly defined name', function() {
+      var strategy = {
+        name: 'internal_name',
+        _oauth2: {}
+      };
+
+      AuthTokenRefresh.use(strategy);
+
+      expect(AuthTokenRefresh._strategies.internal_name.strategy).to.equal(strategy);
+    });
+
     it('should add a strategy with a refreshURL', function() {
       var strategy = {
         name: 'test_strategy',
@@ -26,8 +48,7 @@ describe('Auth token refresh', function() {
       };
 
       AuthTokenRefresh.use(strategy);
-      expect(AuthTokenRefresh._strategies.test_strategy.strategy)
-        .to.equal(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.strategy).to.equal(strategy);
       expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2._accessTokenUrl).to.equal('refreshURL');
     });
 
@@ -40,8 +61,7 @@ describe('Auth token refresh', function() {
       };
 
       AuthTokenRefresh.use(strategy);
-      expect(AuthTokenRefresh._strategies.test_strategy.strategy)
-        .to.equal(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.strategy).to.equal(strategy);
       expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2._accessTokenUrl).to.equal('accessTokenUrl');
     });
 
@@ -64,7 +84,7 @@ describe('Auth token refresh', function() {
         AuthTokenRefresh.use(strategy);
       };
 
-      expect(fn).to.throw(Error, 'Cannot register: strategy has no name');
+      expect(fn).to.throw(Error, 'Cannot register: name must be specified, or strategy must include name');
     });
 
     it('should not add a non-OAuth 2.0 strategy', function() {
@@ -77,7 +97,7 @@ describe('Auth token refresh', function() {
         AuthTokenRefresh.use(strategy);
       };
 
-      expect(fn).to.throw(Error, 'Cannot register: strategy test_strategy is not an OAuth2 strategy');
+      expect(fn).to.throw(Error, 'Cannot register: not an OAuth2 strategy');
     });
   });
 
