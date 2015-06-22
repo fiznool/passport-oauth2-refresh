@@ -4,7 +4,9 @@ An add-on to the [Passport](http://passportjs.org) authentication library to pro
 
 ## Installation
 
-[![npm install passport-oauth2-refresh](https://nodei.co/npm/passport-oauth2-refresh.png?downloads=true)](https://nodei.co/npm/passport-oauth2-refresh/)
+```
+npm install passport-oauth2-refresh --save
+```
 
 ## Usage
 
