@@ -9,6 +9,16 @@ var chai = require('chai'),
 
 chai.use(require('sinon-chai'));
 
+// Dummy OAuth2 object
+function OAuth2(clientId, clientSecret, baseSite, authorizeUrl, accessTokenUrl) {
+  this._accessTokenUrl = accessTokenUrl;
+}
+
+// Makes it easy to invocate in the specs
+var newOAuth2 = function(accessTokenUrl) {
+  return new OAuth2(null, null, null, null, accessTokenUrl);
+};
+
 describe('Auth token refresh', function() {
 
   beforeEach(function() {
@@ -19,7 +29,7 @@ describe('Auth token refresh', function() {
     it('should add a strategy with an explicitly defined name', function() {
       var strategy = {
         name: 'internal_name',
-        _oauth2: {}
+        _oauth2: newOAuth2()
       };
 
       AuthTokenRefresh.use('explicit_name', strategy);
@@ -30,7 +40,7 @@ describe('Auth token refresh', function() {
     it('should add a strategy without an explicitly defined name', function() {
       var strategy = {
         name: 'internal_name',
-        _oauth2: {}
+        _oauth2: newOAuth2()
       };
 
       AuthTokenRefresh.use(strategy);
@@ -42,9 +52,7 @@ describe('Auth token refresh', function() {
       var strategy = {
         name: 'test_strategy',
         _refreshURL: 'refreshURL',
-        _oauth2: {
-          _accessTokenUrl: 'accessTokenUrl'
-        }
+        _oauth2: newOAuth2('accessTokenUrl')
       };
 
       AuthTokenRefresh.use(strategy);
@@ -55,14 +63,25 @@ describe('Auth token refresh', function() {
     it('should add a strategy without a refreshURL', function() {
       var strategy = {
         name: 'test_strategy',
-        _oauth2: {
-          _accessTokenUrl: 'accessTokenUrl'
-        }
+        _oauth2: newOAuth2('accessTokenUrl')
       };
 
       AuthTokenRefresh.use(strategy);
       expect(AuthTokenRefresh._strategies.test_strategy.strategy).to.equal(strategy);
       expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2._accessTokenUrl).to.equal('accessTokenUrl');
+    });
+
+    it('should create a new oauth2 object with the same prototype as the strategy\'s _oauth2 object', function() {
+      var strategyOAuth2 = newOAuth2();
+      var strategy = {
+        name: 'test_strategy',
+        _oauth2: strategyOAuth2
+      };
+
+      AuthTokenRefresh.use(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2).to.not.equal(strategyOAuth2);
+      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2).to.be.instanceof(OAuth2);
+
     });
 
     it('should not add a null strategy', function() {
@@ -77,7 +96,7 @@ describe('Auth token refresh', function() {
     it('should not add a strategy with no name', function() {
       var strategy = {
         name: '',
-        _oauth2: {}
+        _oauth2: newOAuth2()
       };
 
       var fn = function() {
@@ -105,7 +124,7 @@ describe('Auth token refresh', function() {
     it('should return true if a strategy has been added', function() {
       var strategy = {
         name: 'test_strategy',
-        _oauth2: {}
+        _oauth2: newOAuth2()
       };
 
       AuthTokenRefresh.use(strategy);
