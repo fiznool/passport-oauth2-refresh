@@ -56,6 +56,29 @@ refresh.requestNewAccessToken('facebook', 'some_refresh_token', function(err, ac
 
 ```
 
+### Specific name
+
+Instead of using the default `strategy.name`, you can setup `passport-oauth2-refresh` to use an specific name instead.
+
+``` js
+// Setup
+passport.use('gmail', googleStrategy);
+
+// To refresh
+refresh.requestNewAccessToken('gmail', 'some_refresh_token', done);
+```
+
+This can be useful if you'd like to reuse strategy objects but under a different name.
+
+### Additional parameters
+
+Some endpoints require additional parameters to be sent when requesting a new access token. To send these parameters, specify the parameters when calling `requestNewAccessToken` as follows:
+
+``` js
+var extraParams = { some: 'extra_param' };
+refresh.requestNewAccessToken('gmail', 'some_refresh_token', extraParams, done);
+```
+
 ## Examples
 
 - See [issue #1](https://github.com/fiznool/passport-oauth2-refresh/issues/1) for an example of how to refresh a token when requesting data from the Google APIs.
