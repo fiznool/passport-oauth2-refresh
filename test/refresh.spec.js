@@ -34,8 +34,7 @@ describe('Auth token refresh', function() {
 
       AuthTokenRefresh.use('explicit_name', strategy);
 
-      expect(AuthTokenRefresh._strategies.explicit_name).to.be.defined;
-      expect(AuthTokenRefresh._strategies.internal_name).to.be.undefined;
+      expect(AuthTokenRefresh._strategies.explicit_name.strategy).to.equal(strategy);expect(AuthTokenRefresh._strategies.strategy).to.be.undefined;
     });
 
     it('should add a strategy without an explicitly defined name', function() {
@@ -46,7 +45,7 @@ describe('Auth token refresh', function() {
 
       AuthTokenRefresh.use(strategy);
 
-      expect(AuthTokenRefresh._strategies.internal_name).to.be.defined;
+      expect(AuthTokenRefresh._strategies.internal_name.strategy).to.equal(strategy);
     });
 
     it('should add a strategy with a refreshURL', function() {
@@ -57,6 +56,7 @@ describe('Auth token refresh', function() {
       };
 
       AuthTokenRefresh.use(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.strategy).to.equal(strategy);
       expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2._accessTokenUrl).to.equal('refreshURL');
     });
 
@@ -67,6 +67,7 @@ describe('Auth token refresh', function() {
       };
 
       AuthTokenRefresh.use(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.strategy).to.equal(strategy);
       expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2._accessTokenUrl).to.equal('accessTokenUrl');
     });
 
@@ -80,41 +81,7 @@ describe('Auth token refresh', function() {
       AuthTokenRefresh.use(strategy);
       expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2).to.not.equal(strategyOAuth2);
       expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2).to.be.instanceof(OAuth2);
-    });
 
-    it('should add a strategy with an explicit name and params', function() {
-      var strategyOAuth2 = newOAuth2();
-      var strategy = {
-        name: 'test_strategy',
-        _oauth2: strategyOAuth2
-      };
-      var params = {
-        some: 'extra_param'
-      };
-
-      AuthTokenRefresh.use('explicit_strategy', strategy, params);
-      expect(AuthTokenRefresh._strategies.explicit_strategy.params).to.eql({
-        some: 'extra_param',
-        grant_type: 'refresh_token'
-      });
-      expect(AuthTokenRefresh._strategies.test_strategy).to.be.undefined;
-    });
-
-    it('should add a strategy with explicit params', function() {
-      var strategyOAuth2 = newOAuth2();
-      var strategy = {
-        name: 'test_strategy',
-        _oauth2: strategyOAuth2
-      };
-      var params = {
-        some: 'extra_param'
-      };
-
-      AuthTokenRefresh.use(strategy, params);
-      expect(AuthTokenRefresh._strategies.test_strategy.params).to.eql({
-        some: 'extra_param',
-        grant_type: 'refresh_token'
-      });
     });
 
     it('should not add a null strategy', function() {
@@ -176,9 +143,6 @@ describe('Auth token refresh', function() {
 
       AuthTokenRefresh._strategies = {
         test_strategy: {
-          params: {
-            grant_type: 'refresh_token'
-          },
           refreshOAuth2: {
             getOAuthAccessToken: getOAuthAccessTokenSpy
           }
@@ -188,6 +152,23 @@ describe('Auth token refresh', function() {
       AuthTokenRefresh.requestNewAccessToken('test_strategy', 'refresh_token', done);
 
       expect(getOAuthAccessTokenSpy).to.have.been.calledWith('refresh_token', { grant_type: 'refresh_token' }, done);
+    });
+
+    it('should refresh a new access token with extra params', function() {
+      var getOAuthAccessTokenSpy = sinon.spy();
+      var done = sinon.spy();
+
+      AuthTokenRefresh._strategies = {
+        test_strategy: {
+          refreshOAuth2: {
+            getOAuthAccessToken: getOAuthAccessTokenSpy
+          }
+        }
+      };
+
+      AuthTokenRefresh.requestNewAccessToken('test_strategy', 'refresh_token', { some: 'extra_param' }, done);
+
+      expect(getOAuthAccessTokenSpy).to.have.been.calledWith('refresh_token', { grant_type: 'refresh_token', some: 'extra_param' }, done);
     });
 
     it('should not refresh if the strategy was not previously registered', function() {
