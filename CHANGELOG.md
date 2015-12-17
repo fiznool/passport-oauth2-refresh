@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.0] - 2015-12-17
+### Added
+- Allow extra params to be sent when requesting access token.
+- Use embedded `_oauth2` constructor to create new OAuth2 instance, to support instances where the `_oauth2` object is using a custom implementation.
+
+### Removed
+- Dropped peerDependency on `oauth2` library, in favour of using the `_oauth2` object exposed by passport.
+- Dropped support for node.js 0.6 and 0.8, lowest supported version is now 0.10. _If you still need support for 0.6 or 0.8, please continue to use v0.4.0 of this module._
+
+### Upgrading from 0.4
+
+The move from 0.4 to 1.0 is non-breaking, _unless_ you are using a version of node.js lower than 0.10. In this case, you should stick to using 0.4. Otherwise, you can safely upgrade with no code changes required.
+
 ## [0.4.0] - 2015-04-01
 ### Added
 - Allow strategy to be added with an explicit name: `refresh.use(name, strategy)`.
@@ -30,6 +43,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Fixed README typo.
 
-## [0.1.0] - 2014-11-16
+## 0.1.0 - 2014-11-16
 ### Added
 - Initial release.
+
+[1.0.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.4.0...v1.0.0
+[0.4.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.3.1...v0.4.0
+[0.3.1]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.2.1...v0.3.0
+[0.2.1]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.1.2...v0.2.0
+[0.1.2]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.1.0...v0.1.1
