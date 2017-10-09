@@ -125,7 +125,7 @@ describe('Auth token refresh', function() {
     it('should use the default getOAuthAccessToken function if not overwritten by strategy', function() {
       var strategy = {
         name: 'test_strategy',
-        _oauth2: newOAuth2('accessTokenUrl')
+        _oauth2: newOAuth2()
       };
 
       AuthTokenRefresh.use(strategy);
@@ -135,7 +135,7 @@ describe('Auth token refresh', function() {
     it('should use the overwritten getOAuthAccessToken function if overwritten by strategy', function() {
       var strategy = {
         name: 'test_strategy',
-        _oauth2: newOAuth2('accessTokenUrl')
+        _oauth2: newOAuth2()
       };
       
       strategy._oauth2.getOAuthAccessToken = new Function();
