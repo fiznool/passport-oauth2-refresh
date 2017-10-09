@@ -14,6 +14,9 @@ function OAuth2(clientId, clientSecret, baseSite, authorizeUrl, accessTokenUrl) 
   this._accessTokenUrl = accessTokenUrl;
 }
 
+// Add dummy method
+OAuth2.prototype.getOAuthAccessToken = new Function();
+
 // Makes it easy to invocate in the specs
 var newOAuth2 = function(accessTokenUrl) {
   return new OAuth2(null, null, null, null, accessTokenUrl);
@@ -117,6 +120,29 @@ describe('Auth token refresh', function() {
       };
 
       expect(fn).to.throw(Error, 'Cannot register: not an OAuth2 strategy');
+    });
+    
+    it('should use the default getOAuthAccessToken function if not overwritten by strategy', function() {
+      var strategy = {
+        name: 'test_strategy',
+        _oauth2: newOAuth2('accessTokenUrl')
+      };
+
+      AuthTokenRefresh.use(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2.getOAuthAccessToken).to.equal(OAuth2.prototype.getOAuthAccessToken);
+    });
+
+    it('should use the overwritten getOAuthAccessToken function if overwritten by strategy', function() {
+      var strategy = {
+        name: 'test_strategy',
+        _oauth2: newOAuth2('accessTokenUrl')
+      };
+      
+      strategy._oauth2.getOAuthAccessToken = new Function();
+
+      AuthTokenRefresh.use(strategy);
+      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2.getOAuthAccessToken).to.equal(strategy._oauth2.getOAuthAccessToken);
+      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2.getOAuthAccessToken).not.equal(OAuth2.prototype.getOAuthAccessToken);
     });
   });
 
