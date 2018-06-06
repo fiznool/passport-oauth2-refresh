@@ -1,6 +1,6 @@
 {
   "name": "passport-oauth2-refresh",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A passport.js add-on to provide automatic OAuth 2.0 token refreshing.",
   "main": "lib/refresh.js",
   "directories": {
@@ -13,13 +13,7 @@
     "type": "git",
     "url": "https://github.com/fiznool/passport-oauth2-refresh.git"
   },
-  "keywords": [
-    "passport",
-    "oauth",
-    "oauth2",
-    "auth",
-    "authentication"
-  ],
+  "keywords": ["passport", "oauth", "oauth2", "auth", "authentication"],
   "author": {
     "name": "Tom Spencer",
     "email": "fiznool@gmail.com",

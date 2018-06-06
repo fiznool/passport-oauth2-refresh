@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.0] - 2018-06-06
+### Added
+- Support using a strategy which overrides the `getOAuthAccessToken` function, for example the Reddit or Spotify strategy. #10
+
 ## [1.0.0] - 2015-12-17
 ### Added
 - Allow extra params to be sent when requesting access token.
@@ -47,6 +51,7 @@ The move from 0.4 to 1.0 is non-breaking, _unless_ you are using a version of no
 ### Added
 - Initial release.
 
+[1.1.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.4.0...v1.0.0
 [0.4.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/fiznool/passport-oauth2-refresh/compare/v0.3.0...v0.3.1
