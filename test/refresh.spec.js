@@ -121,7 +121,7 @@ describe('Auth token refresh', function() {
 
       expect(fn).to.throw(Error, 'Cannot register: not an OAuth2 strategy');
     });
-    
+
     it('should use the default getOAuthAccessToken function if not overwritten by strategy', function() {
       var strategy = {
         name: 'test_strategy',
@@ -137,7 +137,7 @@ describe('Auth token refresh', function() {
         name: 'test_strategy',
         _oauth2: newOAuth2()
       };
-      
+
       strategy._oauth2.getOAuthAccessToken = new Function();
 
       AuthTokenRefresh.use(strategy);
@@ -199,11 +199,11 @@ describe('Auth token refresh', function() {
 
     it('should not refresh if the strategy was not previously registered', function() {
       var done = sinon.spy();
-      var expectedErr = new Error('Strategy was not registered to refresh a token');
+      var expected = sinon.match.instanceOf(Error).and(sinon.match.has('message', 'Strategy was not registered to refresh a token'));
 
       AuthTokenRefresh.requestNewAccessToken('test_strategy', 'refresh_token', done);
 
-      expect(done).to.have.been.calledWith(expectedErr);
+      expect(done).to.have.been.calledWith(expected);
     });
   });
 });
