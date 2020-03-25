@@ -10,7 +10,7 @@ An add-on to the [Passport](http://passportjs.org) authentication library to pro
 ## Installation
 
 ```
-npm install passport-oauth2-refresh --save
+npm install passport-oauth2-refresh
 ```
 
 ## Usage
@@ -20,11 +20,11 @@ When setting up your passport strategies, add a call to `refresh.use()` after `p
 An example, using the Facebook strategy:
 
 ``` js
-var passport = require('passport'),
-  , refresh = require('passport-oauth2-refresh')
-  , FacebookStrategy = require('passport-facebook').Strategy;
+const passport = require('passport');
+const refresh = require('passport-oauth2-refresh');
+const FacebookStrategy = require('passport-facebook').Strategy;
 
-var strategy = new FacebookStrategy({
+const strategy = new FacebookStrategy({
   clientID: FACEBOOK_APP_ID,
   clientSecret: FACEBOOK_APP_SECRET,
   callbackURL: "http://www.example.com/auth/facebook/callback"
@@ -44,7 +44,7 @@ refresh.use(strategy);
 When you need to refresh the access token, call `requestNewAccessToken()`:
 
 ``` js
-var refresh = require('passport-oauth2-refresh');
+const refresh = require('passport-oauth2-refresh');
 refresh.requestNewAccessToken('facebook', 'some_refresh_token', function(err, accessToken, refreshToken) {
   // You have a new access token, store it in the user object,
   // or use it to make a new request.
@@ -75,7 +75,7 @@ This can be useful if you'd like to reuse strategy objects but under a different
 Some endpoints require additional parameters to be sent when requesting a new access token. To send these parameters, specify the parameters when calling `requestNewAccessToken` as follows:
 
 ``` js
-var extraParams = { some: 'extra_param' };
+const extraParams = { some: 'extra_param' };
 refresh.requestNewAccessToken('gmail', 'some_refresh_token', extraParams, done);
 ```
 
