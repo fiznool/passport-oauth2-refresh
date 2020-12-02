@@ -2,8 +2,9 @@
 
 An add-on to the [Passport](http://passportjs.org) authentication library to provide a simple way to refresh your OAuth 2.0 access tokens.
 
-[![Build Status](https://travis-ci.org/fiznool/passport-oauth2-refresh.svg?branch=master)](https://travis-ci.org/fiznool/passport-oauth2-refresh)
-[![npm version](https://badge.fury.io/js/passport-oauth2-refresh.svg)](http://badge.fury.io/js/passport-oauth2-refresh)
+[![Build Status](https://github.com/fiznool/passport-oauth2-refresh/workflows/Node.js%20CI/badge.svg)](https://github.com/fiznool/passport-oauth2-refresh/workflows/Node.js%20CI/badge.svg)
+[![npm version](https://img.shields.io/npm/v/passport-oauth2-refresh)](https://img.shields.io/npm/v/passport-oauth2-refresh)
+[![npm downloads per week](https://img.shields.io/npm/dw/passport-oauth2-refresh?color=blue)](https://img.shields.io/npm/dw/passport-oauth2-refresh?color=blue)
 [![Dependency Status](https://david-dm.org/fiznool/passport-oauth2-refresh.svg)](https://david-dm.org/fiznool/passport-oauth2-refresh)
 [![devDependency Status](https://david-dm.org/fiznool/passport-oauth2-refresh/dev-status.svg)](https://david-dm.org/fiznool/passport-oauth2-refresh#info=devDependencies)
 
