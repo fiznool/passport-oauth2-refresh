@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.2] - 2021-05-11
+
+### Updated
+
+- Update dependencies and test against node 16.
 ## [2.0.1] - 2020-12-02
 
 ### Updated
@@ -85,6 +90,7 @@ The move from 0.4 to 1.0 is non-breaking, _unless_ you are using a version of no
 
 - Initial release.
 
+[2.0.2]: https://github.com/fiznool/passport-oauth2-refresh/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/fiznool/passport-oauth2-refresh/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v1.0.0...v1.1.0
