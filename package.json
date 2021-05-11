@@ -8,7 +8,8 @@
   },
   "scripts": {
     "lint": "eslint \"**/*.js\" --fix",
-    "test": "mocha test/refresh.spec.js"
+    "prettier": "prettier --write .",
+    "test": "prettier --check . && mocha test/refresh.spec.js"
   },
   "repository": {
     "type": "git",
@@ -32,11 +33,12 @@
   },
   "homepage": "https://github.com/fiznool/passport-oauth2-refresh",
   "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^7.14.0",
-    "mocha": "^8.2.1",
-    "sinon": "^9.2.1",
-    "sinon-chai": "^3.5.0"
+    "chai": "^4.3.4",
+    "eslint": "^7.26.0",
+    "mocha": "^8.4.0",
+    "prettier": "^2.3.0",
+    "sinon": "^10.0.0",
+    "sinon-chai": "^3.6.0"
   },
   "engines": {
     "node": ">=10"

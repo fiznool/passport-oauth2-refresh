@@ -10,7 +10,13 @@ const AuthTokenRefresh = require('../lib/refresh.js');
 chai.use(require('sinon-chai'));
 
 // Dummy OAuth2 object
-function OAuth2(clientId, clientSecret, baseSite, authorizeUrl, accessTokenUrl) {
+function OAuth2(
+  clientId,
+  clientSecret,
+  baseSite,
+  authorizeUrl,
+  accessTokenUrl,
+) {
   this._accessTokenUrl = accessTokenUrl;
 }
 
@@ -18,190 +24,247 @@ function OAuth2(clientId, clientSecret, baseSite, authorizeUrl, accessTokenUrl) 
 OAuth2.prototype.getOAuthAccessToken = new Function();
 
 // Makes it easy to invocate in the specs
-const newOAuth2 = function(accessTokenUrl) {
+const newOAuth2 = function (accessTokenUrl) {
   return new OAuth2(null, null, null, null, accessTokenUrl);
 };
 
-describe('Auth token refresh', function() {
-
-  beforeEach(function() {
+describe('Auth token refresh', function () {
+  beforeEach(function () {
     AuthTokenRefresh._strategies = {};
   });
 
-  describe('use', function() {
-    it('should add a strategy with an explicitly defined name', function() {
+  describe('use', function () {
+    it('should add a strategy with an explicitly defined name', function () {
       const strategy = {
         name: 'internal_name',
-        _oauth2: newOAuth2()
+        _oauth2: newOAuth2(),
       };
 
       AuthTokenRefresh.use('explicit_name', strategy);
 
-      expect(AuthTokenRefresh._strategies.explicit_name.strategy).to.equal(strategy);expect(AuthTokenRefresh._strategies.strategy).to.be.undefined;
+      expect(AuthTokenRefresh._strategies.explicit_name.strategy).to.equal(
+        strategy,
+      );
+      expect(AuthTokenRefresh._strategies.strategy).to.be.undefined;
     });
 
-    it('should add a strategy without an explicitly defined name', function() {
+    it('should add a strategy without an explicitly defined name', function () {
       const strategy = {
         name: 'internal_name',
-        _oauth2: newOAuth2()
+        _oauth2: newOAuth2(),
       };
 
       AuthTokenRefresh.use(strategy);
 
-      expect(AuthTokenRefresh._strategies.internal_name.strategy).to.equal(strategy);
+      expect(AuthTokenRefresh._strategies.internal_name.strategy).to.equal(
+        strategy,
+      );
     });
 
-    it('should add a strategy with a refreshURL', function() {
+    it('should add a strategy with a refreshURL', function () {
       const strategy = {
         name: 'test_strategy',
         _refreshURL: 'refreshURL',
-        _oauth2: newOAuth2('accessTokenUrl')
+        _oauth2: newOAuth2('accessTokenUrl'),
       };
 
       AuthTokenRefresh.use(strategy);
-      expect(AuthTokenRefresh._strategies.test_strategy.strategy).to.equal(strategy);
-      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2._accessTokenUrl).to.equal('refreshURL');
+      expect(AuthTokenRefresh._strategies.test_strategy.strategy).to.equal(
+        strategy,
+      );
+      expect(
+        AuthTokenRefresh._strategies.test_strategy.refreshOAuth2
+          ._accessTokenUrl,
+      ).to.equal('refreshURL');
     });
 
-    it('should add a strategy without a refreshURL', function() {
+    it('should add a strategy without a refreshURL', function () {
       const strategy = {
         name: 'test_strategy',
-        _oauth2: newOAuth2('accessTokenUrl')
+        _oauth2: newOAuth2('accessTokenUrl'),
       };
 
       AuthTokenRefresh.use(strategy);
-      expect(AuthTokenRefresh._strategies.test_strategy.strategy).to.equal(strategy);
-      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2._accessTokenUrl).to.equal('accessTokenUrl');
+      expect(AuthTokenRefresh._strategies.test_strategy.strategy).to.equal(
+        strategy,
+      );
+      expect(
+        AuthTokenRefresh._strategies.test_strategy.refreshOAuth2
+          ._accessTokenUrl,
+      ).to.equal('accessTokenUrl');
     });
 
-    it('should create a new oauth2 object with the same prototype as the strategy\'s _oauth2 object', function() {
+    it("should create a new oauth2 object with the same prototype as the strategy's _oauth2 object", function () {
       const strategyOAuth2 = newOAuth2();
       const strategy = {
         name: 'test_strategy',
-        _oauth2: strategyOAuth2
+        _oauth2: strategyOAuth2,
       };
 
       AuthTokenRefresh.use(strategy);
-      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2).to.not.equal(strategyOAuth2);
-      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2).to.be.instanceof(OAuth2);
-
+      expect(
+        AuthTokenRefresh._strategies.test_strategy.refreshOAuth2,
+      ).to.not.equal(strategyOAuth2);
+      expect(
+        AuthTokenRefresh._strategies.test_strategy.refreshOAuth2,
+      ).to.be.instanceof(OAuth2);
     });
 
-    it('should not add a null strategy', function() {
+    it('should not add a null strategy', function () {
       const strategy = null;
-      const fn = function() {
+      const fn = function () {
         AuthTokenRefresh.use(strategy);
       };
 
       expect(fn).to.throw(Error, 'Cannot register: strategy is null');
     });
 
-    it('should not add a strategy with no name', function() {
+    it('should not add a strategy with no name', function () {
       const strategy = {
         name: '',
-        _oauth2: newOAuth2()
+        _oauth2: newOAuth2(),
       };
 
-      const fn = function() {
+      const fn = function () {
         AuthTokenRefresh.use(strategy);
       };
 
-      expect(fn).to.throw(Error, 'Cannot register: name must be specified, or strategy must include name');
+      expect(fn).to.throw(
+        Error,
+        'Cannot register: name must be specified, or strategy must include name',
+      );
     });
 
-    it('should not add a non-OAuth 2.0 strategy', function() {
+    it('should not add a non-OAuth 2.0 strategy', function () {
       const strategy = {
         name: 'test_strategy',
-        _oauth2: null
+        _oauth2: null,
       };
 
-      const fn = function() {
+      const fn = function () {
         AuthTokenRefresh.use(strategy);
       };
 
       expect(fn).to.throw(Error, 'Cannot register: not an OAuth2 strategy');
     });
 
-    it('should use the default getOAuthAccessToken function if not overwritten by strategy', function() {
+    it('should use the default getOAuthAccessToken function if not overwritten by strategy', function () {
       const strategy = {
         name: 'test_strategy',
-        _oauth2: newOAuth2()
+        _oauth2: newOAuth2(),
       };
 
       AuthTokenRefresh.use(strategy);
-      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2.getOAuthAccessToken).to.equal(OAuth2.prototype.getOAuthAccessToken);
+      expect(
+        AuthTokenRefresh._strategies.test_strategy.refreshOAuth2
+          .getOAuthAccessToken,
+      ).to.equal(OAuth2.prototype.getOAuthAccessToken);
     });
 
-    it('should use the overwritten getOAuthAccessToken function if overwritten by strategy', function() {
+    it('should use the overwritten getOAuthAccessToken function if overwritten by strategy', function () {
       const strategy = {
         name: 'test_strategy',
-        _oauth2: newOAuth2()
+        _oauth2: newOAuth2(),
       };
 
       strategy._oauth2.getOAuthAccessToken = new Function();
 
       AuthTokenRefresh.use(strategy);
-      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2.getOAuthAccessToken).to.equal(strategy._oauth2.getOAuthAccessToken);
-      expect(AuthTokenRefresh._strategies.test_strategy.refreshOAuth2.getOAuthAccessToken).not.equal(OAuth2.prototype.getOAuthAccessToken);
+      expect(
+        AuthTokenRefresh._strategies.test_strategy.refreshOAuth2
+          .getOAuthAccessToken,
+      ).to.equal(strategy._oauth2.getOAuthAccessToken);
+      expect(
+        AuthTokenRefresh._strategies.test_strategy.refreshOAuth2
+          .getOAuthAccessToken,
+      ).not.equal(OAuth2.prototype.getOAuthAccessToken);
     });
   });
 
-  describe('has', function() {
-    it('should return true if a strategy has been added', function() {
+  describe('has', function () {
+    it('should return true if a strategy has been added', function () {
       const strategy = {
         name: 'test_strategy',
-        _oauth2: newOAuth2()
+        _oauth2: newOAuth2(),
       };
 
       AuthTokenRefresh.use(strategy);
       expect(AuthTokenRefresh.has('test_strategy')).to.be.true;
     });
 
-    it('should return false if a strategy has not been added', function() {
+    it('should return false if a strategy has not been added', function () {
       expect(AuthTokenRefresh.has('test_strategy')).to.be.false;
     });
   });
 
-  describe('request new access token', function() {
-    it('should refresh an access token', function() {
+  describe('request new access token', function () {
+    it('should refresh an access token', function () {
       const getOAuthAccessTokenSpy = sinon.spy();
       const done = sinon.spy();
 
       AuthTokenRefresh._strategies = {
         test_strategy: {
           refreshOAuth2: {
-            getOAuthAccessToken: getOAuthAccessTokenSpy
-          }
-        }
+            getOAuthAccessToken: getOAuthAccessTokenSpy,
+          },
+        },
       };
 
-      AuthTokenRefresh.requestNewAccessToken('test_strategy', 'refresh_token', done);
+      AuthTokenRefresh.requestNewAccessToken(
+        'test_strategy',
+        'refresh_token',
+        done,
+      );
 
-      expect(getOAuthAccessTokenSpy).to.have.been.calledWith('refresh_token', { grant_type: 'refresh_token' }, done);
+      expect(getOAuthAccessTokenSpy).to.have.been.calledWith(
+        'refresh_token',
+        { grant_type: 'refresh_token' },
+        done,
+      );
     });
 
-    it('should refresh a new access token with extra params', function() {
+    it('should refresh a new access token with extra params', function () {
       const getOAuthAccessTokenSpy = sinon.spy();
       const done = sinon.spy();
 
       AuthTokenRefresh._strategies = {
         test_strategy: {
           refreshOAuth2: {
-            getOAuthAccessToken: getOAuthAccessTokenSpy
-          }
-        }
+            getOAuthAccessToken: getOAuthAccessTokenSpy,
+          },
+        },
       };
 
-      AuthTokenRefresh.requestNewAccessToken('test_strategy', 'refresh_token', { some: 'extra_param' }, done);
+      AuthTokenRefresh.requestNewAccessToken(
+        'test_strategy',
+        'refresh_token',
+        { some: 'extra_param' },
+        done,
+      );
 
-      expect(getOAuthAccessTokenSpy).to.have.been.calledWith('refresh_token', { grant_type: 'refresh_token', some: 'extra_param' }, done);
+      expect(getOAuthAccessTokenSpy).to.have.been.calledWith(
+        'refresh_token',
+        { grant_type: 'refresh_token', some: 'extra_param' },
+        done,
+      );
     });
 
-    it('should not refresh if the strategy was not previously registered', function() {
+    it('should not refresh if the strategy was not previously registered', function () {
       const done = sinon.spy();
-      const expected = sinon.match.instanceOf(Error).and(sinon.match.has('message', 'Strategy was not registered to refresh a token'));
+      const expected = sinon.match
+        .instanceOf(Error)
+        .and(
+          sinon.match.has(
+            'message',
+            'Strategy was not registered to refresh a token',
+          ),
+        );
 
-      AuthTokenRefresh.requestNewAccessToken('test_strategy', 'refresh_token', done);
+      AuthTokenRefresh.requestNewAccessToken(
+        'test_strategy',
+        'refresh_token',
+        done,
+      );
 
       expect(done).to.have.been.calledWith(expected);
     });

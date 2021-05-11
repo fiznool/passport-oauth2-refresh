@@ -24,7 +24,7 @@ When setting up your passport strategies, add a call to `refresh.use()` after `p
 
 An example, using the Facebook strategy:
 
-``` js
+```js
 const passport = require('passport');
 const refresh = require('passport-oauth2-refresh');
 const FacebookStrategy = require('passport-facebook').Strategy;
@@ -48,24 +48,26 @@ refresh.use(strategy);
 
 When you need to refresh the access token, call `requestNewAccessToken()`:
 
-``` js
+```js
 const refresh = require('passport-oauth2-refresh');
-refresh.requestNewAccessToken('facebook', 'some_refresh_token', function(err, accessToken, refreshToken) {
-  // You have a new access token, store it in the user object,
-  // or use it to make a new request.
-  // `refreshToken` may or may not exist, depending on the strategy you are using.
-  // You probably don't need it anyway, as according to the OAuth 2.0 spec,
-  // it should be the same as the initial refresh token.
-
-});
-
+refresh.requestNewAccessToken(
+  'facebook',
+  'some_refresh_token',
+  function (err, accessToken, refreshToken) {
+    // You have a new access token, store it in the user object,
+    // or use it to make a new request.
+    // `refreshToken` may or may not exist, depending on the strategy you are using.
+    // You probably don't need it anyway, as according to the OAuth 2.0 spec,
+    // it should be the same as the initial refresh token.
+  },
+);
 ```
 
 ### Specific name
 
 Instead of using the default `strategy.name`, you can setup `passport-oauth2-refresh` to use an specific name instead.
 
-``` js
+```js
 // Setup
 passport.use('gmail', googleStrategy);
 
@@ -79,7 +81,7 @@ This can be useful if you'd like to reuse strategy objects but under a different
 
 Some endpoints require additional parameters to be sent when requesting a new access token. To send these parameters, specify the parameters when calling `requestNewAccessToken` as follows:
 
-``` js
+```js
 const extraParams = { some: 'extra_param' };
 refresh.requestNewAccessToken('gmail', 'some_refresh_token', extraParams, done);
 ```
