@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Updated
 
 - Update dependencies and test against node 16.
+
 ## [2.0.1] - 2020-12-02
 
 ### Updated
