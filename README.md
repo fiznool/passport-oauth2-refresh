@@ -77,11 +77,11 @@ This can be useful if you'd like to reuse strategy objects but under a different
 
 Most passport strategies that use OAuth 2.0 should work without any additional configuration. Some strategies, however require custom OAuth configuration, or do not expose an oauth2 adapter for internal use. In these cases, a callback can be specified by calling the `use` function with an extra `options` parameter:
 
-``` js
+```js
 passport.use(strategy, {
   setRefreshOAuth2() {
     return new OAuth2(/* custom oauth config */);
-  }
+  },
 });
 ```
 
@@ -89,7 +89,7 @@ The `setRefreshOAuth2` callback should return an instance of [the node-oauth OAu
 
 The callback is called with two named parameters, which can be used to further customise the OAuth2 adapter:
 
-``` js
+```js
 passport.use(strategy, {
   setRefreshOAuth2({ strategyOAuth2, refreshOAuth2 }) {
     // These named parameters are set for most strategies.
@@ -98,7 +98,7 @@ passport.use(strategy, {
     // For example, to set a proxy:
     refreshOAuth2.setAgent(new HttpsProxyAgent(agentUrl));
     return refreshOAuth2;
-  }
+  },
 });
 ```
 
