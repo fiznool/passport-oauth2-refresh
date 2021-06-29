@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.0] - 2021-06-29
+
+### Added
+
+- `setRefreshOAuth2` option to customise the OAuth2 adapter that is used to refresh the access token.
+
 ## [2.0.2] - 2021-05-11
 
 ### Updated
@@ -91,6 +97,7 @@ The move from 0.4 to 1.0 is non-breaking, _unless_ you are using a version of no
 
 - Initial release.
 
+[2.1.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/fiznool/passport-oauth2-refresh/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/fiznool/passport-oauth2-refresh/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v1.1.0...v2.0.0
