@@ -8,10 +8,6 @@ An add-on to the [Passport](http://passportjs.org) authentication library to pro
 [![Dependency Status](https://david-dm.org/fiznool/passport-oauth2-refresh.svg)](https://david-dm.org/fiznool/passport-oauth2-refresh)
 [![devDependency Status](https://david-dm.org/fiznool/passport-oauth2-refresh/dev-status.svg)](https://david-dm.org/fiznool/passport-oauth2-refresh#info=devDependencies)
 
-## Looking for new maintainer
-
-Do you use this package and want to see improvements? You could be the perfect new maintainer for passport-oauth2-refresh. See [issue #61](https://github.com/fiznool/passport-oauth2-refresh/issues/61) for more details.
-
 ## Installation
 
 ```
