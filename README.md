@@ -73,6 +73,35 @@ refresh.requestNewAccessToken('gmail', 'some_refresh_token', done);
 
 This can be useful if you'd like to reuse strategy objects but under a different name.
 
+### Custom OAuth2 behaviour
+
+Most passport strategies that use OAuth 2.0 should work without any additional configuration. Some strategies, however require custom OAuth configuration, or do not expose an oauth2 adapter for internal use. In these cases, a callback can be specified by calling the `use` function with an extra `options` parameter:
+
+``` js
+passport.use(strategy, {
+  setRefreshOAuth2() {
+    return new OAuth2(/* custom oauth config */);
+  }
+});
+```
+
+The `setRefreshOAuth2` callback should return an instance of [the node-oauth OAuth2 class](https://github.com/ciaranj/node-oauth#oauth20).
+
+The callback is called with two named parameters, which can be used to further customise the OAuth2 adapter:
+
+``` js
+passport.use(strategy, {
+  setRefreshOAuth2({ strategyOAuth2, refreshOAuth2 }) {
+    // These named parameters are set for most strategies.
+    // The `refreshOAuth2` instance is a clone of the one supplied by the strategy, inheriting most of its config.
+    // Customise it here and return if necessary.
+    // For example, to set a proxy:
+    refreshOAuth2.setAgent(new HttpsProxyAgent(agentUrl));
+    return refreshOAuth2;
+  }
+});
+```
+
 ### Additional parameters
 
 Some endpoints require additional parameters to be sent when requesting a new access token. To send these parameters, specify the parameters when calling `requestNewAccessToken` as follows:
