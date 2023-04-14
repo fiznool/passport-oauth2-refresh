@@ -3,14 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.2.0] - 2023-04-06
+## Unreleased
 
 ### Added
 
-- In addition to exporting an object that can be immediately used,
-  just as before, we have added an `AuthTokenRefresh` property. This is a
+- Added a new named export `AuthTokenRefresh`. This is a
   constructor that can be invoked to create a distinct instance, for
-  applications that require more than one passport instance. (Passport has the same feature.)
+  applications that require more than one Passport instance.
 
 ## [2.1.0] - 2021-06-29
 
