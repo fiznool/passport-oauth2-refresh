@@ -4,7 +4,7 @@ An add-on to the [Passport](http://passportjs.org) authentication library to pro
 
 [![Build Status](https://github.com/fiznool/passport-oauth2-refresh/workflows/Node.js%20CI/badge.svg)](https://github.com/fiznool/passport-oauth2-refresh/actions/workflows/nodejs.yml)
 [![npm version](https://img.shields.io/npm/v/passport-oauth2-refresh)](https://www.npmjs.com/package/passport-oauth2-refresh)
-[![npm downloads per week](https://img.shields.io/npm/dw/passport-oauth2-refresh?color=blue)](https://www.npmjs.com/package/)
+[![npm downloads per week](https://img.shields.io/npm/dw/passport-oauth2-refresh?color=blue)](https://www.npmjs.com/package/passport-oauth2-refresh)
 ![Dependency Status](https://img.shields.io/librariesio/release/npm/passport-oauth2-refresh)
 
 ## Installation
