@@ -3,13 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [2.2.0] - 2023-04-15
 
 ### Added
 
 - Added a new named export `AuthTokenRefresh`. This is a
   constructor that can be invoked to create a distinct instance, for
   applications that require more than one Passport instance.
+
+## Updated
+
+- Added node 18 to test runner
+- Updated dependencies
 
 ## [2.1.0] - 2021-06-29
 
@@ -105,6 +110,7 @@ The move from 0.4 to 1.0 is non-breaking, _unless_ you are using a version of no
 
 - Initial release.
 
+[2.2.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/fiznool/passport-oauth2-refresh/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/fiznool/passport-oauth2-refresh/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/fiznool/passport-oauth2-refresh/compare/v2.0.0...v2.0.1
