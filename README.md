@@ -113,6 +113,23 @@ const extraParams = { some: 'extra_param' };
 refresh.requestNewAccessToken('gmail', 'some_refresh_token', extraParams, done);
 ```
 
+### Multiple instances
+
+Projects that need multiple instances of Passport can construct them using the `Passport`
+constructor available on the `passport` module. Similarly, this module provides
+an `AuthTokenRefresh` constructor that can be used instead of the single instance provided
+by default.
+
+```javascript
+const { Passport } = require('passport');
+const { AuthTokenRefresh } = require('passport-oauth2-refresh');
+
+const passport = new Passport();
+const refresh = new AuthTokenRefresh();
+
+// Additional, distinct instances of these modules can also be created
+```
+
 ## Examples
 
 - See [issue #1](https://github.com/fiznool/passport-oauth2-refresh/issues/1) for an example of how to refresh a token when requesting data from the Google APIs.
